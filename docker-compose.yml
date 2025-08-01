@@ -1,0 +1,43 @@
+services:
+  svd_php:
+    container_name: svd_php
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./app/:/var/www/app
+    working_dir: /var/www/app
+    environment:
+      - APP_ENV=dev
+      - APP_DEBUG=1
+#      - DATABASE_URL=mysql://symfony:symfony@mysql:3306/symfony
+#    depends_on:
+#      - mysql
+
+  svd_nginx:
+    image: nginx:stable-alpine
+    container_name: svd_nginx
+    ports:
+      - "8025:80"
+    volumes:
+      - ./app/:/var/www/app
+      - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - svd_php
+
+#  mysql:
+#    image: mysql:8.0
+#    container_name: svd_mysql
+#    restart: always
+#    environment:
+#      MYSQL_DATABASE: symfony
+#      MYSQL_USER: symfony
+#      MYSQL_PASSWORD: symfony
+#      MYSQL_ROOT_PASSWORD: root
+#    ports:
+#      - "3306:3306"
+#    volumes:
+#      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
