@@ -22,11 +22,13 @@ COPY app/composer.json app/package.json ./
 # Install PHP deps
 RUN composer install --no-interaction
 
-# Install JS deps (Encore/Vue)
-RUN npm install && npm run build
-
 # Permissions
 RUN chown -R www-data:www-data /var/www/app
+
+# Install JS deps (Encore/Vue)
+RUN #npm install
+
+RUN #npm run build
 
 # Expose port if needed (e.g., for Symfony CLI server or nginx)
 #EXPOSE 8000

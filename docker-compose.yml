@@ -13,6 +13,20 @@ services:
 #      - DATABASE_URL=mysql://symfony:symfony@mysql:3306/symfony
 #    depends_on:
 #      - mysql
+#  svd_hotpoint:
+#    container_name: svd_hotpoint
+#    ports:
+#      - "8026:80"
+#    command: ["npm", "run", "watch"]
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    volumes:
+#      - ./app/:/var/www/app
+#    working_dir: /var/www/app
+#    environment:
+#      - APP_ENV=dev
+#      - APP_DEBUG=1
 
   svd_nginx:
     image: nginx:stable-alpine
